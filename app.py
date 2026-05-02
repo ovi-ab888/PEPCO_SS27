@@ -809,10 +809,10 @@ def extract_data_from_pdf(file):
                 "Collection": collection_value,
                 "Colour_SKU": f"{colour} • SKU {sku}",
                 "Style_Merch_Season": (
-                    f"STYLE {style_code.group()} • {style_suffix} • Batch No./ Data e"
+                    f"STYLE {style_code.group()} • {style_suffix} • Batch No./"
                     if style_code else "STYLE UNKNOWN"
                 ),
-                "Batch": f"prodhimit:/ Дата виготовлення: {batch}",
+                "Batch": f"виготовлення: {batch}",
                 "barcode": barcode,
                 "Item_name_EN": item_name_en or "",
                 "Season": season_value
