@@ -199,11 +199,14 @@ COLLECTION_MAPPING = {
 
     # ---------------- Younger Boys ----------------
     "yb": {  # younger boys outerwear
-        "XXXXX_1": "COLLECTION_1",
-        "XXXXX_2": "COLLECTION_2",
-        "XXXXX_3": "COLLECTION_3",
-        "XXXXX_4": "COLLECTION_4",
-        "XXXXX_5": "COLLECTION_5",
+        "FUNDAY CLUB": "COLLECTION_1",
+        "DISCOVER DINO": "COLLECTION_2",
+        "DOUBLE-TAKE": "COLLECTION_3",
+        "EASTER ELEGANT": "COLLECTION_4",
+        "SPORT": "COLLECTION_5",
+        "MARITIME": "COLLECTION_6",
+        "JUNGLE VIBES": "COLLECTION_7",
+        "SURFING": "COLLECTION_8",
     },
 
     # ---------------- Older Boys ----------------
