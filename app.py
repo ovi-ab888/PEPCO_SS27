@@ -1104,7 +1104,7 @@ def process_pepco_pdf(uploaded_pdf, extra_order_ids: str | None = None):
             pct0_int = 0
 
         if mat0 == "cotton" and pct0_int == 100:
-            cotton_value = "Y"
+            cotton_value = "Z"
 
     # Info about totals
     if st.session_state.mat_rows == 1 and valid_rows and valid_rows[0]["pct"] == 100 and (
