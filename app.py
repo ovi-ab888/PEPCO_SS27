@@ -1147,7 +1147,7 @@ def process_pepco_pdf(uploaded_pdf, extra_order_ids: str | None = None):
     # ============================================================
     df['Dept'] = df['Item_classification'].apply(get_dept_value)
 
-    if cotton_value == "Y":
+    if cotton_value == "Z":
         df['Cotton'] = cotton_value
     else:
         if 'Cotton' in df.columns:
