@@ -189,12 +189,12 @@ COLLECTION_MAPPING = {
 
     # ---------------- Older Girls ----------------
     "og": {  # older girls outerwear
-        "TRANSITIONAL_GRAFFITI VIBES": "COLLECTION_0",
-        "REBEL RIDER": "COLLECTION 1",
-        "SKATE EPIC": "COLLECTION 2",
-        "GAMER MODE": "COLLECTION 3",
-        "SPORT": "COLLECTION 4",
-        "SURFING": "COLLECTION 5",
+        "xxxxx": "COLLECTION_0",
+        "xxxxx": "COLLECTION 1",
+        "xxxxx": "COLLECTION 2",
+        "xxxxxx": "COLLECTION 3",
+        "xxxxxx": "COLLECTION 4",
+        "xxxxx": "COLLECTION 5",
     },
 
     # ---------------- Younger Boys ----------------
@@ -211,10 +211,11 @@ COLLECTION_MAPPING = {
 
     # ---------------- Older Boys ----------------
     "ob": {  # older boys outerwear
-        "STREET RACING": "COLLECTION_1",
-        "CAMPUS LIFE": "COLLECTION_2",
-        "DIGITAL RIDE": "COLLECTION_3",
-        "XMAS": "COLLECTION_4",
+        "REBEL RIDER": "COLLECTION 1",
+        "SKATE EPIC": "COLLECTION 2",
+        "GAMER MODE": "COLLECTION 3",
+        "SPORT": "COLLECTION 4",
+        "SURFING": "COLLECTION 5",
     },
 
     # ---------------- Ladies ----------------
