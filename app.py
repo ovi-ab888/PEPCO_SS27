@@ -190,11 +190,11 @@ COLLECTION_MAPPING = {
     # ---------------- Older Girls ----------------
     "og": {  # older girls outerwear
         "TRANSITIONAL_GRAFFITI VIBES": "COLLECTION_0",
-        "COOL STYLE": "COLLECTION_1",
-        "COOL COLLEGE LEAGUE": "COLLECTION_2",
-        "GLAMROCK GIRL": "COLLECTION_3",
-        "COZYTIME": "COLLECTION_4",
-        "XMAS & PARTY": "COLLECTION_5",
+        "REBEL RIDER": "COLLECTION 1",
+        "SKATE EPIC": "COLLECTION 2",
+        "GAMER MODE": "COLLECTION 3",
+        "SPORT": "COLLECTION 4",
+        "SURFING": "COLLECTION 5",
     },
 
     # ---------------- Younger Boys ----------------
