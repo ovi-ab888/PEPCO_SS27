@@ -190,11 +190,15 @@ COLLECTION_MAPPING = {
     # ---------------- Older Girls ----------------
     "og": {  # older girls outerwear
         "xxxxx": "COLLECTION_0",
-        "xxxxx": "COLLECTION 1",
-        "xxxxx": "COLLECTION 2",
-        "xxxxxx": "COLLECTION 3",
-        "xxxxxx": "COLLECTION 4",
-        "xxxxx": "COLLECTION 5",
+        "TRANSITIONAL LUMINOUS BLUME": "COLLECTION 1",
+        "VALENTINE": "COLLECTION 2",
+        "SOUVENIRE SNACK": "COLLECTION 3",
+        "MY FAVOURITE THINGS": "COLLECTION 4",
+        "CANDY": "COLLECTION 5",
+        "SEASIDE": "COLLECTION 6",
+        "LE SOLEI": "COLLECTION 7",
+        "xxxxx": "COLLECTION 0",
+
     },
 
     # ---------------- Younger Boys ----------------
