@@ -525,21 +525,23 @@ def modify_collection(collection, item_class):
     return collection
 
 # ---------- Item_name_EN ----------
-
-
 def clean_item_name_english(name: str) -> str:
     """
-    Item_name_EN থেকে নিচের prefix গুলো বাদ দিয়ে
+    Item_name_EN থেকে নিচের prefix গুলো বাদ দিয়ে
     বাকি অংশ CAPITAL LETTERS এ রিটার্ন করবে।
     """
     if not isinstance(name, str):
         return ""
 
     text = name.strip()
+
+    # শুরুতে "4." "12." এর মতো digit + dot থাকলে বাদ দাও
+    text = re.sub(r'^\d+\.\s*', '', text).strip()
+
     lower = text.lower()
 
     # লম্বা phrase আগে, তারপর ছোট – যেন "baby girl basic" থাকলে
-    # শুধু "baby girl" কেটে না যায়।
+    # শুধু "baby girl" কেটে না যায়।
     prefixes = [
         "xxxxx",
         "xxxxx",
@@ -553,15 +555,13 @@ def clean_item_name_english(name: str) -> str:
 
     for p in prefixes:
         if lower.startswith(p):
-            # prefix এর দৈর্ঘ্য অনুযায়ী কাটবো
+            # prefix এর দৈর্ঘ্য অনুযায়ী কাটবো
             cut_len = len(p)
             text = text[cut_len:].strip(" -_,./").strip()
             break
 
     # সবশেষে CAPITAL
     return text.upper()
-
-
 
 # ================================================================
 # PART 3 — PDF EXTRACTION + MATERIAL SYSTEM + TRANSLATION FORMATTER
