@@ -754,7 +754,7 @@ def extract_data_from_pdf(file):
             collection_value = cleaned.split("-")[0].strip()
         else:
             collection_value = "UNKNOWN"
-        )
+                )
 
         # Collection mapping
         if class_type and class_type in COLLECTION_MAPPING:
