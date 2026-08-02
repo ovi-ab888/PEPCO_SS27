@@ -772,15 +772,6 @@ def extract_data_from_pdf(file):
 
         class_type = get_classification_type(item_class_value)
 
-        collection = re.search(r"Collection\s*\.{2,}\s*(.+)", page1)
-
-        if collection:
-            raw_text = collection.group(1)
-            # "COL -" শব্দটা যেখানেই থাকুক, remove করে দাও
-            cleaned = re.sub(r"COL\s*-\s*", "", raw_text, flags=re.IGNORECASE)
-            collection_value = cleaned.split("-")[0].strip()
-        else:
-            collection_value = "UNKNOWN"
 
 
         # Collection mapping
