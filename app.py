@@ -507,6 +507,28 @@ def get_dept_value(item_class):
 
     return ""
 
+def extract_collection_value(raw_text):
+    """
+    Format: TYPE - NAME - SEASON - CODE
+    প্রথম অংশ (TYPE) automatic skip করে,
+    বাকি থেকে SEASON ও CODE বাদ দিয়ে যা থাকে সেটাই NAME।
+    """
+    parts = [p.strip() for p in raw_text.split("-") if p.strip()]
+
+    if not parts:
+        return "UNKNOWN"
+
+    parts = parts[1:]   # প্রথম অংশ (TYPE) automatic skip
+
+    for p in parts:
+        if re.fullmatch(r"[A-Za-z]{2}\d{2}", p):  # SEASON skip (SS27, AW26)
+            continue
+        if p.isdigit():                            # CODE skip
+            continue
+        return p    # যা বাকি থাকলো সেটাই NAME
+
+    return "UNKNOWN"
+
 
 # ---------- Modify collection name (add B/G) ----------
 def modify_collection(collection, item_class):
@@ -722,6 +744,11 @@ def extract_data_from_pdf(file):
             style_suffix = merch_code.group(1).strip()
 
         collection = re.search(r"Collection\s*\.{2,}\s*(.+)", page1)
+
+        if collection:
+            collection_value = extract_collection_value(collection.group(1))
+        else:
+            collection_value = "UNKNOWN"
 
         date_match = re.search(
             r"Handover\s*date\s*\.{2,}\s*(\d{2}/\d{2}/\d{4})",
