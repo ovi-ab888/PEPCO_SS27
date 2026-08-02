@@ -953,6 +953,7 @@ def process_pepco_pdf(uploaded_pdf, extra_order_ids: str | None = None):
     first_row = result_data[0] if len(result_data) > 0 else {}
     pdf_item_class = first_row.get("Item_classification", "")
     pdf_item_name_en = (first_row.get("Item_name_EN") or "").strip()
+    pdf_item_name_en = re.sub(r'^\d+\.\s*', '', pdf_item_name_en).strip()
 
     # ----- Merge extra Order IDs from other PDFs -----
     if extra_order_ids:
