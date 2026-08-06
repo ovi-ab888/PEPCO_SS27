@@ -178,13 +178,14 @@ COLLECTION_MAPPING = {
 
     # ---------------- Younger Girls ----------------
     "yg": {  # younger girls outerwear
-        "PONNY_RAINBOW": "COLLECTION 1",
-        "MEOW_STORY": "COLLECTION 2",
-        "BTS": "COLLECTION 3",
-        "COZY AUTUMN": "COLLECTION 4",
-        "WINTER BALLET": "COLLECTION 5",
-        "XMAS": "COLLECTION 6",
-        "PARTY": "COLLECTION 7",
+        "BFF’S CLUB": "COLLECTION_1",
+        "LOVELY GIRL": "COLLECTION_2",
+        "MEADOWLANDS": "COLLECTION_3",
+        "EASTER ELEGANT": "COLLECTION_4",
+        "HOT_COUNTRIES_Santorini": "COLLECTION_5",
+        "READ_FRUITS": "COLLECTION_6",
+        "SEA_SHELLL": "COLLECTION_7",
+        "WILD_FOREST": "COLLECTION_7",
     },
 
     # ---------------- Older Girls ----------------
