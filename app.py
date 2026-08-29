@@ -873,7 +873,7 @@ def extract_data_from_pdf(file):
 
         if not skus or not valid_barcodes:
             st.error("SKU or Barcode missing.")
-            return None
+            return None, None
 
         # Align count mismatch
         if len(skus) != len(valid_barcodes):
