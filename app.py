@@ -909,7 +909,7 @@ def extract_data_from_pdf(file):
                 "Batch": f"виготовлення: {batch}",
                 "barcode": barcode,
                 "Item_name_EN": item_name_en or "",
-                "Season": season_value
+                "Season": season_value,
                 "Sizes": sizes,
             })
 
@@ -1083,10 +1083,11 @@ def process_pepco_pdf(uploaded_pdf, extra_order_ids: str | None = None):
     # -- PLN price manual input --
     with c4:
         default_pln = str(detected_pl) if detected_pl else ""
+        pln_price_raw = st.text_input(
             "Enter PLN Price",
             value=default_pln,
             key="ui_pln_price"
-         )
+        )
 
     # ============================================================
     #  Parse PLN price
