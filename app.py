@@ -377,6 +377,63 @@ def detect_pl_sales_price(full_text):
         pass
     return None
 
+# ---------- Extract Sizes from PDF ----------
+def extract_sizes_from_pdf(pages_text):
+    """Extract Sizes correctly even when split line-by-line.
+    Supports:
+      - 9/10, 11/12, 13/14, 15
+      - S, M, L, XL, XXL
+      - 3/4, 4/5, 5/6 ...
+      - 6/9, 9/12, 12/18 ...
+      - 92-98, 98-104, 110-116, 122-128
+      - multiple sizes on one line separated by commas
+    """
+    size_pattern = re.compile(
+        r"^(?:\d+(?:[/-]\d+)?|[A-Za-z]{1,4}(?:/[A-Za-z]{1,4})?)$",
+        re.IGNORECASE
+    )
+    for text in pages_text:
+        lines = [line.strip() for line in text.splitlines() if line.strip()]
+        for idx, line in enumerate(lines):
+            if line.lower() == "sizes":
+                sizes = []
+                for next_line in lines[idx + 1:]:
+                    upper = next_line.upper()
+                    if upper == "TOTAL":
+                        break
+                    if upper == "COLOUR":
+                        continue
+                    candidates = re.split(r"\s*,\s*", next_line)
+                    for cand in candidates:
+                        cand = cand.strip()
+                        if not cand:
+                            continue
+                        if size_pattern.fullmatch(cand) and cand.upper() not in ("COLOUR", "TOTAL"):
+                            sizes.append(cand)
+                if sizes:
+                    return ", ".join(sizes)
+    return ""
+
+
+# ---------- Extract PL Sales Price from PDF ----------
+def extract_pl_sales_price_from_pdf(pages_text):
+    """Extract PL Sales Price accurately across lines."""
+    for text in pages_text:
+        lines = [line.strip() for line in text.splitlines() if line.strip()]
+        for idx, line in enumerate(lines):
+            if line == "PL" or line.startswith("PL "):
+                # Single line check first
+                prices = re.findall(r"\b\d+(?:[.,]\d{2})\b", line)
+                if prices:
+                    return prices[0].replace(",", ".")
+                
+                # Multi-line check for the next few lines
+                for next_line in lines[idx + 1:idx + 5]:
+                    prices = re.findall(r"\b\d+(?:[.,]\d{2})\b", next_line)
+                    if prices:
+                        return prices[0].replace(",", ".")
+    return ""
+
 
 # ---------- Format numbers (PLN, EUR, RON, etc) ----------
 def format_number(value, currency):
@@ -733,6 +790,10 @@ def extract_data_from_pdf(file):
         if m_item:
             item_name_en = m_item.group(1).strip()
 
+                # ---------------- SIZES + PL PRICE ----------------
+        sizes = extract_sizes_from_pdf(pages_text)
+        pl_price_detected = extract_pl_sales_price_from_pdf(pages_text)
+
         # ---------------- Identifiers ----------------
         merch_code = re.search(r"Merch\s*code\s*\.{2,}\s*([\w/]+)", page1)
         season = re.search(r"Season\s*\.{2,}\s*(\w+)?\s*(\d{2})", page1)
@@ -849,13 +910,14 @@ def extract_data_from_pdf(file):
                 "barcode": barcode,
                 "Item_name_EN": item_name_en or "",
                 "Season": season_value
+                "Sizes": sizes,
             })
 
-        return results
+        return results, pl_price_detected
 
     except Exception as e:
         st.error(f"PDF error: {str(e)}")
-        return None
+        return None, None
 
 
 # ================================================================
@@ -944,7 +1006,7 @@ def process_pepco_pdf(uploaded_pdf, extra_order_ids: str | None = None):
         return
 
     # ----- Parse PDF to structured data -----
-    result_data = extract_data_from_pdf(uploaded_pdf)
+    result_data, detected_pl = extract_data_from_pdf(uploaded_pdf)
     if not result_data:
         return
 
@@ -1020,8 +1082,9 @@ def process_pepco_pdf(uploaded_pdf, extra_order_ids: str | None = None):
 
     # -- PLN price manual input --
     with c4:
-        pln_price_raw = st.text_input(
+        default_pln = str(detected_pl) if detected_pl else ""
             "Enter PLN Price",
+            value=default_pln,
             key="ui_pln_price"
         )
 
@@ -1225,7 +1288,7 @@ def process_pepco_pdf(uploaded_pdf, extra_order_ids: str | None = None):
                 "Collection", "Colour_SKU", "Style_Merch_Season",
                 "Batch", "barcode", "washing_code", "EUR", "BGN",
                 "BAM", "PLN", "RON", "CZK", "UAH", "MKD", "RSD", "HUF",
-                "product_name", "Dept", "Item_name_English", "Season"
+                "product_name", "Dept", "Item_name_English", "Season", "Sizes"
             ]
 
             # Optionally include Cotton column
