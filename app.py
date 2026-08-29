@@ -761,13 +761,13 @@ def extract_data_from_pdf(file):
         raw = file.read()
         if not raw:
             st.error("Empty PDF uploaded.")
-            return None
+            return None, None
 
         doc = fitz.open(stream=raw, filetype="pdf")
 
         if len(doc) < 1:
             st.error("PDF must have at least 1 page.")
-            return None
+            return None, None
 
         pages_text = [doc[i].get_text() for i in range(len(doc))]
         full_text = "\n".join(pages_text)
