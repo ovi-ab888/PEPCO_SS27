@@ -891,7 +891,12 @@ def extract_data_from_pdf(file):
 
         # ---------------- BUILD RESULT ----------------
         results = []
-        for sku, barcode in zip(skus, valid_barcodes):
+
+        # Sizes কে লিস্টে ভাগ করো
+        sizes_list = [s.strip() for s in sizes.split(",")] if sizes else [""]
+
+        # SKU + Barcode + Size একসাথে জোড়া বাঁধো (সবসময় সমান সংখ্যা)
+        for sku, barcode, size in zip(skus, valid_barcodes, sizes_list):
             results.append({
                 "Order_ID": order_id.group(1).strip() if order_id else "UNKNOWN",
                 "Style": style_code.group() if style_code else "UNKNOWN",
@@ -910,7 +915,7 @@ def extract_data_from_pdf(file):
                 "barcode": barcode,
                 "Item_name_EN": item_name_en or "",
                 "Season": season_value,
-                "Sizes": sizes,
+                "Sizes": size,          
             })
 
         return results, pl_price_detected
