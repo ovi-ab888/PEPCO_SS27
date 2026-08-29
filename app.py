@@ -812,6 +812,16 @@ def extract_data_from_pdf(file):
         else:
             collection_value = "UNKNOWN"
 
+        # ---------------- Collection Manual Fallback ----------------
+        if not collection_value or collection_value == "UNKNOWN":
+            st.warning("⚠️ Collection not found in PDF. Enter Collection manually:")
+            manual_collection = st.text_input(
+                "Collection (e.g. MODERN 1):",
+                key="manual_collection_input"
+            )
+            if manual_collection and manual_collection.strip():
+                collection_value = manual_collection.strip().upper()
+
         date_match = re.search(
             r"Handover\s*date\s*\.{2,}\s*(\d{2}/\d{2}/\d{4})",
             page1
